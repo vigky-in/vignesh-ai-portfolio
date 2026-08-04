@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // SQLite works with zero setup. Swap to postgresql + a DATABASE_URL
+  // when you deploy (Railway/Render/Neon all give you one free).
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String // bcrypt hash
+}
+
+model HeroContent {
+  id          String @id @default("hero") // singleton row
+  headline    String
+  subheadline String
+  primaryCta  String @default("View Projects")
+  primaryCtaUrl String @default("#projects")
+  secondaryCta String @default("Download Resume")
+  secondaryCtaUrl String @default("/resume.pdf")
+  statProjects   Int    @default(0)
+  statTech       Int    @default(0)
+  statRepos      Int    @default(0)
+  statTagline    String @default("Final Year AI & ML Engineer")
+  updatedAt   DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String   // "AI/ML" | "Software"
+  image       String?
+  techStack   String   // comma separated
+  githubUrl   String?
+  liveUrl     String?
+  mlModel     String?
+  accuracy    String?
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model JourneyItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  date        String
+  category    String   // Internship, Hackathon, Research, Open Source, Freelance, Milestone
+  image       String?
+  tags        String   // comma separated
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Skill {
+  id       String @id @default(cuid())
+  name     String
+  category String // Programming, AI, Backend, Frontend, Cloud, Tools
+  level    Int    @default(80) // 0-100 for the skill bar
+  order    Int    @default(0)
+}
+
+model Testimonial {
+  id       String @id @default(cuid())
+  name     String
+  role     String
+  company  String?
+  photo    String?
+  review   String
+  rating   Int    @default(5)
+  order    Int    @default(0)
+}
+
+model SocialLink {
+  id       String @id @default(cuid())
+  platform String @unique // github, linkedin, x, leetcode, kaggle, email
+  url      String
+}
+
+model ContactInfo {
+  id        String  @id @default("contact")
+  email     String
+  phone     String?
+  whatsapp  String?
+  location  String?
+  calendly  String?
+}
+
+model GithubStats {
+  id           String @id @default("github")
+  username     String @default("")
+  totalRepos   Int    @default(0)
+  totalCommits Int    @default(0)
+  followers    Int    @default(0)
+  topLanguages String @default("") // comma separated
+}
+
+model FaqItem {
+  id       String @id @default(cuid())
+  question String
+  answer   String
+  order    Int    @default(0)
+}
+
+model ContactMessage {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  company     String?
+  projectType String?
+  message     String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
