@@ -3,9 +3,7 @@ generator client {
 }
 
 datasource db {
-  // SQLite works with zero setup. Swap to postgresql + a DATABASE_URL
-  // when you deploy (Railway/Render/Neon all give you one free).
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
