@@ -192,7 +192,7 @@ export default function Hero({
             <div className="relative h-full w-full rounded-full overflow-hidden shadow-[0_0_60px_rgba(61,139,255,0.35)] border-2 border-bg">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/profile.jpg"
+                src="/profile.JPEG"
                 alt="Profile photo"
                 // object-position keeps your face centered even if the photo
                 // isn't perfectly square — nudge the % values if it's off.
