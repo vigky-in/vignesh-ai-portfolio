@@ -16,7 +16,7 @@ export default function About() {
           <div className="relative rounded-3xl overflow-hidden glass aspect-[4/5] max-w-md mx-auto">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/vignesh.JPG"
+              src="/vignesh.jpg"
               alt="Vignesh"
               className="h-full w-full object-cover"
               style={{ objectPosition: "center 20%" }}
