@@ -17,7 +17,7 @@ export default function About() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/vignesh.jpg"
-              alt="Vignesh"
+              alt="Vignesh PROFILE"
               className="h-full w-full object-cover"
               style={{ objectPosition: "center 20%" }}
             />
