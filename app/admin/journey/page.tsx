@@ -18,8 +18,8 @@ export default function JourneyAdmin() {
           {
             key: "category",
             label: "Category",
-            type: "select",
-            options: ["Milestone", "Internship", "Hackathon", "Research", "Open Source", "Freelance Project"],
+            type: "text",
+            placeholder : "Hacktons,AI,API"
           },
           { key: "image", label: "Image URL (optional)", type: "text" },
           { key: "tags", label: "Tech Tags (comma separated)", type: "text" },

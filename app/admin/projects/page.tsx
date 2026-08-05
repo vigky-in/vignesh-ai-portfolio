@@ -16,7 +16,7 @@ export default function ProjectsAdmin() {
         fields={[
           { key: "title", label: "Title", type: "text" },
           { key: "description", label: "Description", type: "textarea" },
-          { key: "category", label: "Category", type: "select", options: ["AI/ML", "Software"] },
+          { key: "category", label: "Category", type: "text", placeholder : "Calculator" },
           { key: "image", label: "Image URL", type: "text", placeholder: "https://..." },
           { key: "techStack", label: "Tech Stack (comma separated)", type: "text", placeholder: "Python, TensorFlow" },
           { key: "mlModel", label: "ML Model Used (optional)", type: "text" },

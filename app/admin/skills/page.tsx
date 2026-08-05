@@ -14,7 +14,7 @@ export default function SkillsAdmin() {
         subtitleKey="category"
         defaultValues={{ category: "", level: 70, order: 0 }}
         fields={[
-          { key: "name", label: "Skill name", type: "text", placeholder: "e.g. Kubernetes" },
+          { key: "name", label: "Skill name", type: "text", placeholder: "e.g. Python" },
           { key: "order", label: "Sort order (lower = shows first)", type: "number" },
         ]}
       />

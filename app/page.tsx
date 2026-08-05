@@ -11,6 +11,7 @@ import Testimonials from "@/components/site/Testimonials";
 import Faq from "@/components/site/Faq";
 import ContactSection from "@/components/site/ContactSection";
 import Footer from "@/components/site/Footer";
+import { fetchLiveGithubStats } from "@/lib/github";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +28,10 @@ export default async function Home() {
       prisma.contactInfo.findUnique({ where: { id: "contact" } }),
       prisma.socialLink.findMany(),
     ]);
+
+  // Try live GitHub data first; fall back to whatever's saved in admin
+  // (manually entered) if the API call fails or no username is set.
+  const live = await fetchLiveGithubStats(github?.username ?? "");
 
   return (
     <>
@@ -51,10 +56,12 @@ export default async function Home() {
         <SkillsSection skills={skills} />
         <GithubSection
           username={github?.username ?? ""}
-          totalRepos={github?.totalRepos ?? 0}
+          totalRepos={live?.publicRepos ?? github?.totalRepos ?? 0}
           totalCommits={github?.totalCommits ?? 0}
-          followers={github?.followers ?? 0}
-          topLanguages={github?.topLanguages ?? ""}
+          followers={live?.followers ?? github?.followers ?? 0}
+          topLanguages={
+            live?.topLanguages?.length ? live.topLanguages.join(",") : github?.topLanguages ?? ""
+          }
         />
         <Testimonials items={testimonials} />
         <Faq items={faqs} />

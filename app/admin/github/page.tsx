@@ -28,8 +28,10 @@ export default function GithubAdmin() {
     <div>
       <h1 className="font-display text-2xl font-semibold mb-1">GitHub Stats</h1>
       <p className="text-muted text-sm mb-6">
-        These numbers are entered manually — update them with your real GitHub stats whenever you
-        check your profile.
+        Set your username and repos, followers, and top languages update themselves
+        automatically from GitHub&apos;s public API (refreshes about once an hour). Only
+        &quot;commits&quot; below is manual — GitHub doesn&apos;t expose an accurate total
+        through the free API.
       </p>
 
       <div className="glass rounded-2xl p-6 space-y-4 max-w-xl">
