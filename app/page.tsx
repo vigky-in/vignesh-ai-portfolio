@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Nav from "@/components/site/Nav";
 import Hero from "@/components/site/Hero";
 import Marquee from "@/components/site/Marquee";
+import About from "@/components/site/About";
 import ProjectsSection from "@/components/site/ProjectsSection";
 import JourneyTimeline from "@/components/site/JourneyTimeline";
 import SkillsSection from "@/components/site/SkillsSection";
@@ -44,6 +45,7 @@ export default async function Home() {
           statTagline={hero?.statTagline ?? ""}
         />
         <Marquee />
+        <About />
         <ProjectsSection projects={projects} />
         <JourneyTimeline items={journey} />
         <SkillsSection skills={skills} />

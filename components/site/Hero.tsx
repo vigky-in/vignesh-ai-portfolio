@@ -98,6 +98,16 @@ export default function Hero({
             init(); loading_ai_engineer.profile
           </motion.div>
 
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="font-display text-2xl sm:text-3xl text-muted mb-1"
+          >
+            Hi, I&apos;m{" "}
+            <span className="accent-gradient font-semibold">Vignesh</span>
+          </motion.p>
+
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -164,75 +174,75 @@ export default function Hero({
           <p className="mt-3 text-xs text-faint font-mono">{statTagline}</p>
         </div>
 
-        {/* right: mock ai dashboard */}
+        {/* right: profile photo + orbiting skill badges */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative hidden lg:block"
+          className="relative hidden lg:flex items-center justify-center mx-auto"
+          style={{ width: 380, height: 380 }}
         >
-          <div className="relative animate-float">
-            <div className="glass rounded-2xl p-5 shadow-2xl">
-              <div className="flex items-center gap-1.5 mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
-                <span className="ml-auto font-mono text-[10px] text-faint">model.py</span>
-              </div>
-              <pre className="font-mono text-[11px] leading-relaxed text-muted overflow-hidden">
-{`class VisionModel(nn.Module):
-    def forward(self, x):
-        x = self.backbone(x)
-        return self.head(x)
+          {/* orbit rings — sized to fit inside the column, nothing clips */}
+          <div className="absolute h-[300px] w-[300px] rounded-full border border-borderSoft" />
+          <div className="absolute h-[360px] w-[360px] rounded-full border border-borderSoft/50" />
 
->>> predict(frame)
-{ class: "person", conf: 0.97 }`}
-              </pre>
-            </div>
-
-            <div className="glass rounded-2xl p-5 mt-4 shadow-2xl">
-              <div className="flex items-center justify-between mb-3">
-                <span className="font-mono text-[10px] text-faint">prediction_accuracy</span>
-                <span className="font-mono text-[10px] text-emerald-400">+2.3%</span>
-              </div>
-              <svg viewBox="0 0 240 60" className="w-full h-14">
-                <polyline
-                  fill="none"
-                  stroke="#3D8BFF"
-                  strokeWidth="2"
-                  points="0,45 30,38 60,42 90,25 120,30 150,15 180,20 210,8 240,12"
-                />
-                <polyline
-                  fill="url(#g1)"
-                  stroke="none"
-                  points="0,45 30,38 60,42 90,25 120,30 150,15 180,20 210,8 240,12 240,60 0,60"
-                />
-                <defs>
-                  <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#3D8BFF" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#3D8BFF" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-              </svg>
+          {/* photo with gradient glow ring */}
+          <div className="relative h-64 w-64 rounded-full animate-float z-10">
+            <div className="absolute -inset-1.5 rounded-full bg-gradient-to-br from-accent via-accent2 to-accent opacity-70 blur-md" />
+            <div className="relative h-full w-full rounded-full overflow-hidden shadow-[0_0_60px_rgba(61,139,255,0.35)] border-2 border-bg">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/profile.jpg"
+                alt="Profile photo"
+                // object-position keeps your face centered even if the photo
+                // isn't perfectly square — nudge the % values if it's off.
+                className="h-full w-full object-cover"
+                style={{ objectPosition: "center 25%" }}
+              />
+              {/* vignette so a flat/white photo background blends into the dark theme */}
+              <div
+                className="absolute inset-0 rounded-full pointer-events-none"
+                style={{ boxShadow: "inset 0 0 40px 18px rgba(5,5,5,0.55)" }}
+              />
+              <div
+                className="absolute inset-0 rounded-full pointer-events-none mix-blend-multiply"
+                style={{
+                  background: "radial-gradient(circle, transparent 55%, rgba(5,5,5,0.65) 100%)",
+                }}
+              />
             </div>
           </div>
 
-          <div className="glass rounded-xl p-4 absolute -left-10 top-1/2 w-48 animate-float-delayed shadow-2xl">
-            <div className="font-mono text-[10px] text-faint mb-2">neural_net.layers</div>
-            <div className="flex justify-between">
-              {[4, 6, 6, 5, 3].map((n, i) => (
-                <div key={i} className="flex flex-col gap-1.5">
-                  {Array.from({ length: n }).map((_, j) => (
-                    <span
-                      key={j}
-                      className="h-1.5 w-1.5 rounded-full bg-accent/70"
-                      style={{ opacity: 0.4 + ((i + j) % 3) * 0.2 }}
-                    />
-                  ))}
+          {/* orbiting skill badges — each is: rotating wrapper (the orbit)
+              containing a counter-rotating wrapper (keeps the badge text
+              upright while it travels around the circle) */}
+          {[
+            { label: "Python", icon: "🐍", radius: 190, duration: 16, startAngle: 0 },
+            { label: "SQL", icon: "🗄️", radius: 190, duration: 20, startAngle: 130 },
+            { label: "React", icon: "⚛️", radius: 190, duration: 24, startAngle: 250 },
+          ].map((b) => (
+            <div
+              key={b.label}
+              className="absolute inset-0 animate-orbit"
+              style={{
+                animationDuration: `${b.duration}s`,
+                transform: `rotate(${b.startAngle}deg)`,
+              }}
+            >
+              <div
+                className="absolute top-1/2 left-1/2"
+                style={{ transform: `translate(${b.radius}px, -50%)` }}
+              >
+                <div
+                  className="glass rounded-full px-4 py-2 flex items-center gap-2 shadow-xl animate-orbit-reverse"
+                  style={{ animationDuration: `${b.duration}s` }}
+                >
+                  <span className="text-accent">{b.icon}</span>
+                  <span className="text-sm font-medium whitespace-nowrap">{b.label}</span>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          ))}
         </motion.div>
       </div>
     </section>

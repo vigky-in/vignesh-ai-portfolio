@@ -5,7 +5,12 @@ export default function SocialAdmin() {
   return (
     <div>
       <h1 className="font-display text-2xl font-semibold mb-1">Social Links</h1>
-      <p className="text-muted text-sm mb-6">Shown in the nav bar and footer.</p>
+      <p className="text-muted text-sm mb-6">
+        Add any platform you want — type the name exactly as listed below so the
+        right icon shows up on the site: <span className="text-accent font-mono text-xs">
+        github, linkedin, x, instagram, youtube, facebook, leetcode, kaggle, email</span>.
+        Anything else still works, it just shows a generic link icon.
+      </p>
       <ResourceManager
         endpoint="/api/admin/social"
         titleKey="platform"
@@ -14,11 +19,11 @@ export default function SocialAdmin() {
         fields={[
           {
             key: "platform",
-            label: "Platform",
-            type: "select",
-            options: ["github", "linkedin", "x", "leetcode", "kaggle", "email"],
+            label: "Platform name (lowercase)",
+            type: "text",
+            placeholder: "instagram",
           },
-          { key: "url", label: "URL", type: "text", placeholder: "https://github.com/username" },
+          { key: "url", label: "URL", type: "text", placeholder: "https://instagram.com/username" },
         ]}
       />
     </div>

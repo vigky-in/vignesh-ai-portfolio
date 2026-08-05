@@ -35,6 +35,8 @@ const config: Config = {
         "float-delayed": "float 7s ease-in-out infinite 1.5s",
         grain: "grain 8s steps(10) infinite",
         blink: "blink 1.1s step-end infinite",
+        orbit: "orbit 18s linear infinite",
+        "orbit-reverse": "orbit-reverse 18s linear infinite",
       },
       keyframes: {
         marquee: {
@@ -60,6 +62,14 @@ const config: Config = {
         blink: {
           "0%, 49%": { opacity: "1" },
           "50%, 100%": { opacity: "0" },
+        },
+        orbit: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "orbit-reverse": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(-360deg)" },
         },
       },
     },
