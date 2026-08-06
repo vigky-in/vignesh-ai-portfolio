@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { FolderKanban, Milestone, Wrench, Inbox } from "lucide-react";
 
+
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboard() {
   const [projects, journey, skills, messages] = await Promise.all([
     prisma.project.count(),
