@@ -15,23 +15,35 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const res = await fetch("/api/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    setLoading(false);
-    if (!res.ok) {
-      setError("Invalid email or password.");
-      return;
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        setError("Invalid email or password.");
+        return;
+      }
+      router.push("/admin");
+      router.refresh();
+    } catch {
+      setError("Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
     }
-    router.push("/admin");
-    router.refresh();
   }
 
   return (
-    <div className="min-h-screen grid-bg flex items-center justify-center p-6">
-      <form onSubmit={onSubmit} className="glass rounded-2xl p-8 w-full max-w-sm">
+    <div className="relative min-h-screen flex items-center justify-center p-6">
+      {/* Background grid lives on its own layer so any mask on it
+          does not fade the login card */}
+      <div aria-hidden className="grid-bg absolute inset-0 pointer-events-none" />
+
+      <form
+        onSubmit={onSubmit}
+        className="glass relative z-10 rounded-2xl p-8 w-full max-w-sm"
+      >
         <div className="h-11 w-11 rounded-xl bg-accentSoft flex items-center justify-center mb-5">
           <Lock size={18} className="text-accent" />
         </div>
